@@ -1,0 +1,7 @@
+name: Expert questions
+type: module
+description: Expert questions module
+core: 8.x
+package: Custom
+dependencies:
+  - views

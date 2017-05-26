@@ -1,0 +1,14 @@
+{
+  "name": "cyberlex404/expert_questions",
+  "type": "drupal-module-custom",
+  "description": "Expert questions module",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/expert_questions",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/expert_questions",
+    "source": "http://cgit.drupalcode.org/expert_questions"
+  },
+  "require": { }
+}

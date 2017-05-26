@@ -1,0 +1,22 @@
+add expert question entities:
+  title: 'Create new Expert question entities'
+
+administer expert question entities:
+  title: 'Administer Expert question entities'
+  description: 'Allow to access the administration form to configure Expert question entities.'
+  restrict access: true
+
+delete expert question entities:
+  title: 'Delete Expert question entities'
+
+edit expert question entities:
+  title: 'Edit Expert question entities'
+
+access expert question overview:
+  title: 'Access the Expert question overview page'
+
+view published expert question entities:
+  title: 'View published Expert question entities'
+
+view unpublished expert question entities:
+  title: 'View unpublished Expert question entities'

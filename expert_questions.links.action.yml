@@ -1,0 +1,5 @@
+entity.expert_question.add_form:
+  route_name: entity.expert_question.add_form
+  title: 'Add Expert question'
+  appears_on:
+    - entity.expert_question.collection

@@ -1,0 +1,13 @@
+
+expert_questions.ask:
+  path: 'experts/{expert}/ask'
+  defaults:
+    _form: '\Drupal\expert_questions\Form\Ask'
+    _title: 'Ask'
+  options:
+    parameters:
+      expert:
+        type: entity:user
+  requirements:
+    _access: 'TRUE'
+  

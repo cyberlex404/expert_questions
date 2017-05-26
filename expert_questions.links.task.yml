@@ -1,0 +1,22 @@
+# Expert question routing definition
+expert_question.settings_tab:
+  route_name: expert_question.settings
+  title: 'Settings'
+  base_route: expert_question.settings
+
+entity.expert_question.canonical:
+  route_name: entity.expert_question.canonical
+  base_route: entity.expert_question.canonical
+  title: 'View'
+
+entity.expert_question.edit_form:
+  route_name: entity.expert_question.edit_form
+  base_route: entity.expert_question.canonical
+  title: 'Edit'
+
+entity.expert_question.delete_form:
+  route_name:  entity.expert_question.delete_form
+  base_route:  entity.expert_question.canonical
+  title: Delete
+  weight: 10
+

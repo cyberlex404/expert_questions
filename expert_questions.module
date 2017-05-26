@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Contains expert_questions.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function expert_questions_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the expert_questions module.
+    case 'help.page.expert_questions':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Expert questions module') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function expert_questions_theme() {
+  return [
+    'expert_questions' => [
+      'render element' => 'children',
+    ],
+  ];
+}
