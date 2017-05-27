@@ -4,6 +4,7 @@ namespace Drupal\expert_questions\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\expert_questions\Entity\ExpertQuestion;
 use Drupal\user\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManager;
@@ -51,12 +52,45 @@ class Ask extends FormBase {
     if ($expert instanceof UserInterface) {
       $form_state->addBuildInfo('expert', $expert);
     }
-    $form['question'] = [
-      '#type' => 'text_format',
+    $form['question_wrap'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => ['row', 'question-wrap'],
+      ],
+    ];
+    $form['question_wrap']['question'] = [
+      '#type' => 'textarea',//'text_format',
       '#title' => $this->t('Question'),
       '#description' => $this->t('You question'),
+      '#required' => TRUE,
+      '#prefix' => '<div class="col-md-12">',
+      '#suffix' => '</div>',
     ];
-    $form['submit'] = [
+    $form['persinfo'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => ['row'],
+      ],
+    ];
+    $form['persinfo']['name'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('You name'),
+      '#size' => 60,
+      '#maxlength' => 250,
+      '#required' => TRUE,
+      '#prefix' => '<div class="col-md-6">',
+      '#suffix' => '</div>',
+    ];
+    $form['persinfo']['author_email'] = [
+      '#type' => 'email',
+      '#title' => $this->t('You E-mail'),
+      '#description' => $this->t('You E-mail for notify'),
+      '#required' => TRUE,
+      '#prefix' => '<div class="col-md-6">',
+      '#suffix' => '</div>',
+    ];
+    $form['actions'] = ['#type' => 'actions'];
+    $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Submit'),
     ];
@@ -76,10 +110,24 @@ class Ask extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Display result.
-    foreach ($form_state->getValues() as $key => $value) {
-      drupal_set_message($key . ': ' . $value);
+    /**
+     * @var $expert UserInterface
+     */
+    $expert = $form_state->getBuildInfo()['expert'];
+    $expertQuestion = ExpertQuestion::create([
+      'name' => 'Question',
+      'question' => $form_state->getValue('question'),
+      'expert' => $expert->id(),
+      'author_name' => $form_state->getValue('name'),
+      'author_email' => $form_state->getValue('author_email'),
+    ]);
+    $status = $expertQuestion->save();
+    $expertQuestion->setName($this->t('Question') . ' #'. $expertQuestion->id());
+    $expertQuestion->save();
+    if ($status) {
+      drupal_set_message($this->t('Question send'));
     }
-
+    $form_state->setRedirect('<front>');
   }
 
 }

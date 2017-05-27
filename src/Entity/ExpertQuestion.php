@@ -44,7 +44,7 @@ use Drupal\user\UserInterface;
  *     "status" = "status",
  *   },
  *   links = {
- *     "canonical" = "/admin/structure/expert_question/{expert_question}",
+ *     "canonical" = "/questions/{expert_question}",
  *     "add-form" = "/admin/structure/expert_question/add",
  *     "edit-form" = "/admin/structure/expert_question/{expert_question}/edit",
  *     "delete-form" = "/admin/structure/expert_question/{expert_question}/delete",
@@ -140,6 +140,19 @@ class ExpertQuestion extends ContentEntityBase implements ExpertQuestionInterfac
   public function setPublished($published) {
     $this->set('status', $published ? TRUE : FALSE);
     return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isAnswered() {
+    return ($this->get('answer')->isEmpty()) ? FALSE : TRUE;
+  }
+  /**
+   * {@inheritdoc}
+   */
+  public function getAnswer() {
+    return $this->get('answer')->getValue();
   }
 
   /**
@@ -247,6 +260,20 @@ class ExpertQuestion extends ContentEntityBase implements ExpertQuestionInterfac
           'placeholder' => '',
         ],
       ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['author_name'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Author Name'))
+      ->setDefaultValue('')
+      ->setRequired(TRUE)
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['author_email'] = BaseFieldDefinition::create('email')
+      ->setLabel(t('Author E-mail'))
+      ->setDefaultValue('')
+      ->setRequired(TRUE)
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 

@@ -74,4 +74,15 @@ interface ExpertQuestionInterface extends  ContentEntityInterface, EntityChanged
    */
   public function setPublished($published);
 
+  /**
+   * @return bool
+   *   TRUE if the answer exists
+   */
+  public function isAnswered();
+
+  /**
+   * @return mixed
+   */
+  public function getAnswer();
+
 }

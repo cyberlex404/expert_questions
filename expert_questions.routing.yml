@@ -11,3 +11,15 @@ expert_questions.ask:
   requirements:
     _access: 'TRUE'
   
+#answer
+expert_questions.answer:
+  path: 'questions/{expert_question}/answer'
+  defaults:
+    _form: '\Drupal\expert_questions\Form\Answer'
+    _title: 'Answer'
+  options:
+    parameters:
+      expert_question:
+        type: entity:expert_question
+  requirements:
+    _permission: 'answer the questions addressed'

@@ -20,3 +20,6 @@ view published expert question entities:
 
 view unpublished expert question entities:
   title: 'View unpublished Expert question entities'
+
+answer the questions addressed:
+  title: 'Answer the questions addressed'
