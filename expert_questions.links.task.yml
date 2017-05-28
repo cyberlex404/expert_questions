@@ -20,3 +20,8 @@ entity.expert_question.delete_form:
   title: Delete
   weight: 10
 
+expert_questions.answer:
+  route_name:  expert_questions.answer
+  base_route:  entity.expert_question.canonical
+  title: Answer
+  weight: 2

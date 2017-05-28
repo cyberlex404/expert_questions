@@ -85,4 +85,9 @@ interface ExpertQuestionInterface extends  ContentEntityInterface, EntityChanged
    */
   public function getAnswer();
 
+  /**
+   * @return \Drupal\user\UserInterface
+   */
+  public function getExpert();
+
 }

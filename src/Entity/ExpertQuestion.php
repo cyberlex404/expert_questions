@@ -155,6 +155,11 @@ class ExpertQuestion extends ContentEntityBase implements ExpertQuestionInterfac
     return $this->get('answer')->getValue();
   }
 
+  public function getExpert() {
+    return $this->get('expert')->entity;
+  }
+
+
   /**
    * {@inheritdoc}
    */

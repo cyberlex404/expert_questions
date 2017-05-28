@@ -22,4 +22,5 @@ expert_questions.answer:
       expert_question:
         type: entity:expert_question
   requirements:
-    _permission: 'answer the questions addressed'
+    #_permission: 'answer the questions addressed+edit expert question entities'
+    _custom_access: '\Drupal\expert_questions\Form\Answer::access'

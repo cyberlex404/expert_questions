@@ -2,8 +2,10 @@
 
 namespace Drupal\expert_questions\Form;
 
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\expert_questions\Entity\ExpertQuestion;
 use Drupal\expert_questions\Entity\ExpertQuestionInterface;
 use Drupal\user\UserInterface;
@@ -23,18 +25,26 @@ class Answer extends FormBase {
    * @var \Drupal\Core\Entity\EntityTypeManager
    */
   protected $entityTypeManager;
+
+  /**
+   * @var AccountInterface $account
+   */
+  protected $currentUser;
   /**
    * Constructs a new Ask object.
    */
   public function __construct(
-    EntityTypeManager $entity_type_manager
+    EntityTypeManager $entity_type_manager,
+    AccountInterface $currentUser
   ) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->currentUser = $currentUser;
   }
 
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('current_user')
     );
   }
 
@@ -63,14 +73,13 @@ class Answer extends FormBase {
       '#type' => 'text_format',//'text_format',
       '#title' => $this->t('Answer'),
       '#description' => $this->t('You answer'),
-      '#format' => 'full_html',
+      '#format' => 'basic_html',
       '#required' => TRUE,
       '#prefix' => '<div class="col-md-12">',
       '#suffix' => '</div>',
     ];
     if ($expert_question->isAnswered()) {
       $answer = reset($expert_question->getAnswer());
-      dpm($answer);
       $form['answer_wrap']['answer']['#default_value'] = $answer['value'];
     }
 
@@ -110,6 +119,27 @@ class Answer extends FormBase {
     $form_state->setRedirect('entity.expert_question.canonical', [
       'expert_question' => $expertQuestion->id(),
     ]);
+  }
+
+  /**
+   * Checks access for a specific request.
+   *
+   * @param \Drupal\Core\Session\AccountInterface $account
+   *   Run access checks for this account.
+   */
+  public function access(ExpertQuestionInterface $expert_question = NULL) {
+
+    if ($expert_question instanceof ExpertQuestionInterface) {
+
+      if ($this->currentUser->hasPermission('edit expert question entities')) {
+        return AccessResult::allowed();
+      }
+      return AccessResult::allowedIf($this->currentUser->id() == $expert_question->getExpert()->id()
+        && $this->currentUser->hasPermission('answer the questions addressed'));
+
+    }else {
+      return AccessResult::forbidden();
+    }
   }
 
 
