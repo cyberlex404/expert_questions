@@ -1,15 +1,14 @@
-
 expert_questions.ask:
   path: 'experts/{expert}/ask'
   defaults:
     _form: '\Drupal\expert_questions\Form\Ask'
-    _title: 'Ask'
+    _title: 'Ask a Question'
   options:
     parameters:
       expert:
         type: entity:user
   requirements:
-    _access: 'TRUE'
+    _permission: 'access content'
   
 #answer
 expert_questions.answer:
@@ -22,5 +21,14 @@ expert_questions.answer:
       expert_question:
         type: entity:expert_question
   requirements:
-    #_permission: 'answer the questions addressed+edit expert question entities'
     _custom_access: '\Drupal\expert_questions\Form\Answer::access'
+expert_questions.config:
+  path: '/admin/config/expert_questions/config'
+  defaults:
+    _form: '\Drupal\expert_questions\Form\Config'
+    _title: 'Expert questions'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
+

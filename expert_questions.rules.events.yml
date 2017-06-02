@@ -1,0 +1,7 @@
+expert_questions_new_question:
+  label: 'New question'
+  category: 'Expert question'
+  context:
+    question:
+      type: 'entity:expert_question'
+      label: 'Expert question'

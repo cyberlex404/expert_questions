@@ -2,13 +2,12 @@
 
 namespace Drupal\expert_questions\Form;
 
+use Drupal\Component\Utility\Xss;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\expert_questions\Entity\ExpertQuestion;
 use Drupal\expert_questions\Entity\ExpertQuestionInterface;
-use Drupal\user\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 
@@ -103,29 +102,24 @@ class Answer extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Display result.
+
     /**
      * @var $expertQuestion ExpertQuestionInterface
      */
-    $expertQuestion = $form_state->getBuildInfo()['question'];
-    $expertQuestion->set('answer', $form_state->getValue('answer'));
-    $status = $expertQuestion->save();
-    dpm($status,'status'); //todo: delete all dpm() function
 
-    //$expertQuestion->save();
-   /* if ($status) {
-      drupal_set_message($this->t('Question send'));
-    }*/
+    $expertQuestion = $form_state->getBuildInfo()['question'];
+    $expertQuestion->set('answer', Xss::filter($form_state->getValue('answer')));
+    $expertQuestion->save();
+
     $form_state->setRedirect('entity.expert_question.canonical', [
       'expert_question' => $expertQuestion->id(),
     ]);
   }
 
   /**
-   * Checks access for a specific request.
    *
-   * @param \Drupal\Core\Session\AccountInterface $account
-   *   Run access checks for this account.
+   * @param ExpertQuestionInterface $expert_question
+   *   Run access checks for this form.
    */
   public function access(ExpertQuestionInterface $expert_question = NULL) {
 

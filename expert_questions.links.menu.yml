@@ -12,3 +12,11 @@ expert_question.admin.structure.settings:
   description: 'Configure Expert question entities'
   route_name: expert_question.settings
   parent: system.admin_structure
+
+expert_questions.config:
+  title: 'Expert questions'
+  route_name: expert_questions.config
+  description: 'A description for the menu entry'
+  parent: system.admin_config_system
+  weight: 99
+

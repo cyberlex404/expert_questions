@@ -33,3 +33,25 @@ function expert_questions_theme() {
     ],
   ];
 }
+
+/**
+ * Implements hook_mail().
+ */
+function expert_questions_mail($key, &$message, $params) {
+  $options = array(
+    'langcode' => $message['langcode'],
+  );
+
+  switch ($key) {
+    case 'expert_notify':
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $message['subject'] = t('New questions on the site: @site', array('@site' => $params['site_name']), $options);
+      $message['body'][] = $params['message'];
+      break;
+    case 'expert_notify_question':
+      $message['from'] = \Drupal::config('system.site')->get('mail');
+      $message['subject'] = t('A new question for the expert: @site', array('@site' => $params['site_name']), $options);
+      $message['body'][] = $params['message'];
+      break;
+  }
+}
