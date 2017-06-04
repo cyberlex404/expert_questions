@@ -1,0 +1,21 @@
+uuid: a4c53275-33dd-4538-b7af-9e22496a5940
+langcode: ru
+status: true
+dependencies:
+  module:
+    - profile
+id: profile.field_time_answering
+field_name: field_time_answering
+entity_type: profile
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

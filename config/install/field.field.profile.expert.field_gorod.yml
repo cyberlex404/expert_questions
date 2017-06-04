@@ -1,0 +1,19 @@
+uuid: 7b607bac-43c7-41b6-a5cc-d180684f8259
+langcode: ru
+status: true
+dependencies:
+  config:
+    - field.storage.profile.field_gorod
+    - profile.type.expert
+id: profile.expert.field_gorod
+field_name: field_gorod
+entity_type: profile
+bundle: expert
+label: Город
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

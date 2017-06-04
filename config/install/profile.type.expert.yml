@@ -1,0 +1,14 @@
+uuid: 00535646-d137-402f-b818-aa1885dcf14a
+langcode: ru
+status: true
+dependencies: {  }
+id: expert
+label: Expert
+registration: false
+multiple: false
+roles:
+  expert: expert
+  authenticated: '0'
+  manager: '0'
+  administrator: '0'
+weight: 0
